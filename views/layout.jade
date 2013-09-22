@@ -1,0 +1,11 @@
+doctype 5
+html
+  head
+    title= title
+    script(type='text/javascript', src='/javascripts/timbre.js')
+    script(type='text/javascript', src='/javascripts/paper.js')
+    script(type='text/paperscript', src="/javascripts/p.js" , canvas="myCanvas")
+    script(type='text/javascript', src="/javascripts/audio.js")
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    canvas#myCanvas(resize="true")
