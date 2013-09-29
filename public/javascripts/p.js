@@ -1,22 +1,52 @@
-var app = angular.module('paper', []);
+var app = angular.module('paper-service', []);
 
-app.factory('$paper', function() {
-  // if(typeof paper == undefined) {
-  //   alert('paper not defined');
-  // }
+app.factory('paper', function() {
 
-  p.init = function(canvas) {
-    console.log('wat');
-    // paper.setup(canvas);
+  var p = {};
+  p.rects = new Array();
+ 
+  p.init = function(elm) {
+    paper.setup(elm);
+    paper.install(p);
+
+    var size = new paper.Size(50, 50);
+    var s = [0, 60, 120, 180];
+    var center = new paper.Point(115, 115); 
+
+    angular.forEach(s, function(x) {
+      angular.forEach(s, function(y) {
+
+        var rect = new paper.Path.Rectangle(new paper.Point(x, y), size);
+        // p.fillColor = 'black';
+        var black = new paper.GradientStop(new paper.Color('black'), 0);
+        var grey = new paper.GradientStop(new paper.Color('grey'), 0);
+        var gradient = new paper.Gradient([grey, black], true);   
+        var gradColor;
+        switch(true) {
+          case x < center.x && y < center.y: //topLeft
+            gradColor= new paper.Color(gradient, center, new paper.Point(0, 0)); 
+            break;
+          case x > center.x && y < center.y: //topRight
+            gradColor= new paper.Color(gradient, center, new paper.Point(230, 0));
+            break;
+          case x < center.x && y > center.y: //bottomLeft
+            gradColor= new paper.Color(gradient, center, new paper.Point(0, 230));
+            break;
+          case x > center.x && y > center.y: //bottomRight
+            gradColor= new paper.Color(gradient, center, new paper.Point(230, 230));
+            break;
+        }
+        rect.fillColor = gradColor;
+        p.rects.push(rect);
+      });
+    });
+        
+    var viewSize = new paper.Size(230, 230);
+    paper.view.viewSize = viewSize;
+    paper.view.draw();
   } 
+
 
   return p;
 });
 
-  
-
-// var path = new Path();
-// path.strokeColor = 'black';
-// var start = new Point(100,100);
-// path.moveTo(start);
-// path.lineTo(start + [100, -50]);
