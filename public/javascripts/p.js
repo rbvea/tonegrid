@@ -3,7 +3,18 @@ var app = angular.module('paper-service', []);
 app.factory('paper', function() {
 
   var p = {};
-  p.rects = new Array();
+
+  var rect_column_1 = new Array();
+  var rect_column_2 = new Array();
+  var rect_column_3 = new Array();
+  var rect_column_4 = new Array();
+
+  p.rects = {
+    0: rect_column_1, 
+    1: rect_column_2, 
+    2: rect_column_3, 
+    3: rect_column_4, 
+  } 
  
   p.init = function(elm) {
     paper.setup(elm);
@@ -13,8 +24,8 @@ app.factory('paper', function() {
     var s = [0, 60, 120, 180];
     var center = new paper.Point(115, 115); 
 
-    angular.forEach(s, function(x) {
-      angular.forEach(s, function(y) {
+    angular.forEach(s, function(x, i) {
+      angular.forEach(s, function(y, j) {
 
         var rect = new paper.Path.Rectangle(new paper.Point(x, y), size);
         // p.fillColor = 'black';
@@ -37,7 +48,9 @@ app.factory('paper', function() {
             break;
         }
         rect.fillColor = gradColor;
-        p.rects.push(rect);
+
+        p.rects[i % 4].push(rect);
+        // p.rects.push(rect);
       });
     });
         
