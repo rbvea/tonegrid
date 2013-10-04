@@ -48,6 +48,12 @@ app.factory('paper', function() {
             break;
         }
         rect.fillColor = gradColor;
+        
+        rect.onMouseDown = function(e) {
+          e.target.selected = !e.target.selected;
+          e.target.fillColor = (e.target.selected) ? 'white' : 'black';
+          // angular.element(p).trigger('tonegrid.Click', e.target);
+        }
 
         p.rects[i % 4].push(rect);
         // p.rects.push(rect);
@@ -58,7 +64,6 @@ app.factory('paper', function() {
     paper.view.viewSize = viewSize;
     paper.view.draw();
   } 
-
 
   return p;
 });
