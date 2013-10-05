@@ -13,7 +13,7 @@ var paperDir = function($log, paper, timbre) {
       scope.time += scope.speed;
       if(Math.floor(scope.time) > scope.i){
         scope.i = Math.floor(scope.time);
-        scope.step = (scope.step + 1) % 4;
+        scope.step = (scope.step + 1) % 16;
         scope.$apply();
       }
     }
@@ -26,8 +26,8 @@ var paperDir = function($log, paper, timbre) {
       });
       angular.forEach(paper.rects[nu], function(rect) {
         rect.strokeColor = 'white';
-        if(rect.selected) {
-          timbre.play(rect._index % 4);
+        if(rect.data.selected) {
+          timbre.play(rect._index % 16);
         }
       });
     });
