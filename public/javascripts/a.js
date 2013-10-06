@@ -21,15 +21,8 @@ var paperDir = function($log, paper, timbre) {
     var tool = new paper.Tool();
 
     scope.$watch('step', function(nu, old) {
-      angular.forEach(paper.rects[old], function(rect) {
-        rect.strokeColor = 'black';
-      });
-      angular.forEach(paper.rects[nu], function(rect) {
-        rect.strokeColor = 'white';
-        if(rect.data.selected) {
-          timbre.play(rect._index % 16);
-        }
-      });
+      paper.rects[old].strokeColor = 'black';
+      paper.rects[nu].strokeColor = 'white';
     });
   }
 }
