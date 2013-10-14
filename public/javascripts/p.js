@@ -23,7 +23,6 @@ app.factory('paper', function($log) {
       for(var y = 0; y < this.BOXES; y++) {
         var rect = new Path.Rectangle(new paper.Point(x * total_size, y * total_size), size);
         rect.fillColor = 'black';
-        
         rect.onMouseDown = function(e) {
           e.target.data.selected = !e.target.data.selected;
           e.target.fillColor = (e.target.data.selected) ? 'white' : 'black';
