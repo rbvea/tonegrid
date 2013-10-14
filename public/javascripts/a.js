@@ -1,35 +1,37 @@
 var paperDir = function($log, paper, timbre) {
 
   return function(scope, elm, attrs) {
-    paper.init(elm[0]);
+    var p = new paper(elm[0]);
 
-    scope.speed = 0.05; //0.01 is slow, 0.05 is fast;
-
+    scope.speed = 0.01; //0.01 is slow, 0.05 is fast;
     scope.time = 0;
     scope.step = 1;
     scope.i = 0;
 
-    paper.view.onFrame = function(event) {
+    view.onFrame = function(event) {
       scope.time += scope.speed;
       if(Math.floor(scope.time) > scope.i){
         scope.i = Math.floor(scope.time);
-        scope.step = (scope.step + 1) % 16;
+        scope.step = (scope.step + 1) % p.BOXES;
         scope.$apply();
       }
     }
 
-    var tool = new paper.Tool();
+    var tool = new Tool();
 
     scope.$watch('step', function(nu, old) {
-      angular.forEach(paper.rects[old], function(rect) {
-        rect.strokeColor = 'black';
-      });
-      angular.forEach(paper.rects[nu], function(rect) {
-        rect.strokeColor = 'white';
-        if(rect.data.selected) {
-          timbre.play(rect._index % 16);
-        }
-      });
+      if(typeof p.rects[old] != 'undefined') {
+        p.rects[old].strokeColor = 'black';
+      }
+      if(typeof p.rects[nu] != 'undefined') {
+        p.rects[nu].strokeColor = 'white';
+        angular.forEach(p.rects[nu].children, function(rect, i) {
+          rect.selected = rect.data.selected;
+          if(rect.data.selected) {
+            timbre.play(rect._index % 16);
+          }
+        });
+      }
     });
   }
 }
