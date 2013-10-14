@@ -3,7 +3,7 @@ var paperDir = function($log, paper, timbre) {
   return function(scope, elm, attrs) {
     var p = new paper(elm[0]);
 
-    scope.speed = 0.01; //0.01 is slow, 0.05 is fast;
+    scope.speed = 0.05; //0.01 is slow, 0.05 is fast;
     scope.time = 0;
     scope.step = 1;
     scope.i = 0;

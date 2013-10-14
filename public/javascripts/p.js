@@ -4,7 +4,7 @@ app.factory('paper', function($log) {
   var p = function (elm) {
     paper.install(window);
     paper.setup(elm);
-    this.BOXES = 2;
+    this.BOXES = 16;
     this.SIZE = 50;
     this.GUTTER = 10;
 
@@ -40,10 +40,9 @@ app.factory('paper', function($log) {
     });
     this.rects = rects;
 
-
-    angular.element("#wrapper").width(total_size * this.BOXES);
-    $log.info(total_size + this.BOXES);
-    angular.element(elm).width(total_size * this.BOXES).height(total_size * this.BOXES);
+    var dimensions = total_size * this.BOXES;
+    angular.element("#wrapper").width(dimensions).height(dimensions);
+    angular.element(elm).width(dimensions).height(dimensions);
     view.viewSize = viewSize;
     view.draw();
   } 
